@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 /**
  * Created by vidhurvoora on 6/19/16.
+ * Class for each Todoitem
  */
 public class TodoItem implements Serializable {
     public String itemContent;
