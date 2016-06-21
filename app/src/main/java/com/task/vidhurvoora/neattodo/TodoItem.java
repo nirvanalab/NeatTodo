@@ -9,7 +9,13 @@ import java.io.Serializable;
 public class TodoItem implements Serializable {
     public String itemContent;
     public int itemPosition;
+    public long itemId;
 
+    public TodoItem(String content,int pos, long id){
+        this.itemContent = content;
+        this.itemPosition = pos;
+        this.itemId = id;
+    }
     public TodoItem(String content, int pos) {
         this.itemContent = content;
         this.itemPosition = pos;
