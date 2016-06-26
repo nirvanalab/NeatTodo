@@ -1,10 +1,10 @@
-# Pre-work - *Name of App Here*
+# Pre-work - *NeatTodo*
 
 **NeatTodo** is an android app that allows building a todo list and basic todo items management functionality including adding new items, editing and deleting an existing item.
 
 Submitted by: **Vidhur Voora**
 
-Time spent: **6** hours spent in total
+Time spent: **14** hours spent in total
 
 ## User Stories
 
