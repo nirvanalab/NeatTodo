@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by vidhurvoora on 6/20/16.
@@ -27,7 +26,6 @@ public class TodoDatabaseHelper extends SQLiteOpenHelper {
     // Post Table Column
     private static final String KEY_TODO_ID = "id";
     private static final String KEY_TODO_CONTENT = "content";
-    private static final String KEY_TODO_POSITION = "position";
 
     //Singleton instance
     public static synchronized TodoDatabaseHelper getInstance(Context context) {
@@ -48,9 +46,7 @@ public class TodoDatabaseHelper extends SQLiteOpenHelper {
         String CREATE_TODO_TABLE = "CREATE TABLE " + TABLE_TODO +
                 "(" +
                 KEY_TODO_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + // Define a primary key
-                KEY_TODO_CONTENT + " TEXT ," + // Define a foreign key
-                KEY_TODO_POSITION + " INTEGER" +
-                ")";
+                KEY_TODO_CONTENT + " TEXT "+ ")";
 
         db.execSQL(CREATE_TODO_TABLE);
     }
@@ -81,7 +77,6 @@ public class TodoDatabaseHelper extends SQLiteOpenHelper {
         try {
             ContentValues values = new ContentValues();
             values.put(KEY_TODO_CONTENT,todoItem.itemContent);
-            values.put(KEY_TODO_POSITION,todoItem.itemPosition);
             itemId = db.insertOrThrow(TABLE_TODO,null,values);
             db.setTransactionSuccessful();
         } catch (Exception e) {
@@ -101,7 +96,6 @@ public class TodoDatabaseHelper extends SQLiteOpenHelper {
         try {
             ContentValues values = new ContentValues();
             values.put(KEY_TODO_CONTENT,todoItem.itemContent);
-            values.put(KEY_TODO_POSITION,todoItem.itemPosition);
             int rows = db.update(TABLE_TODO,values,KEY_TODO_ID + " = ?",new String[]{Long.toString(todoItem.itemId)});
             if ( rows == 1) {
                 db.setTransactionSuccessful();
@@ -115,15 +109,12 @@ public class TodoDatabaseHelper extends SQLiteOpenHelper {
     }
 
     //delete todoitem
-    public void deleteTodo(TodoItem todoItem) {
+    public void deleteTodo(String  todoId) {
         SQLiteDatabase db = getWritableDatabase();
         //delete in transaction
         db.beginTransaction();
         try {
-            ContentValues values = new ContentValues();
-            values.put(KEY_TODO_CONTENT,todoItem.itemContent);
-            values.put(KEY_TODO_POSITION,todoItem.itemPosition);
-            db.delete(TABLE_TODO,KEY_TODO_ID + " = ?",new String[]{Long.toString(todoItem.itemId)});
+            db.delete(TABLE_TODO,KEY_TODO_ID + " = ?",new String[]{todoId});
             db.setTransactionSuccessful();
         } catch (Exception e) {
             //Exception occurred
@@ -134,8 +125,8 @@ public class TodoDatabaseHelper extends SQLiteOpenHelper {
     }
 
     //fetch all todoitems
-    public List<TodoItem> getAllTodoItems() {
-        List<TodoItem> todoItems = new ArrayList<>();
+    public ArrayList<TodoItem> getAllTodoItems() {
+        ArrayList<TodoItem> todoItems = new ArrayList<TodoItem>();
         String TODO_SELECT_QUERY = String.format("SELECT * FROM %s",TABLE_TODO);
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery(TODO_SELECT_QUERY,null);
@@ -143,9 +134,8 @@ public class TodoDatabaseHelper extends SQLiteOpenHelper {
             if ( cursor.moveToFirst()) {
                 do {
                     String itemContent = cursor.getString(cursor.getColumnIndex(KEY_TODO_CONTENT));
-                    int itemPosition = cursor.getInt(cursor.getColumnIndex(KEY_TODO_POSITION));
                     long itemId = cursor.getLong(cursor.getColumnIndex(KEY_TODO_ID));
-                    TodoItem item = new TodoItem(itemContent,itemPosition,itemId);
+                    TodoItem item = new TodoItem(itemContent,itemId);
                     todoItems.add(item);
                 }while (cursor.moveToNext());
             }
@@ -159,4 +149,32 @@ public class TodoDatabaseHelper extends SQLiteOpenHelper {
         return todoItems;
     }
 
+    public TodoItem getTodoItem(String id) {
+        String TODO_SELECT_QUERY = String.format("SELECT * FROM %s WHERE %s = %s",TABLE_TODO,KEY_TODO_ID,id);
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery(TODO_SELECT_QUERY,null);
+        TodoItem item = null;
+        try {
+            if ( cursor.moveToFirst()) {
+
+                    String itemContent = cursor.getString(cursor.getColumnIndex(KEY_TODO_CONTENT));
+                    long itemId = cursor.getLong(cursor.getColumnIndex(KEY_TODO_ID));
+                    item = new TodoItem(itemContent,itemId);
+            }
+        }catch (Exception e) {
+
+        }finally {
+            if (cursor != null && !cursor.isClosed()) {
+                cursor.close();
+            }
+        }
+        return item;
+    }
+
+    public Cursor getTodoItemsCursor(){
+        String TODO_SELECT_QUERY = String.format("SELECT id _id,* FROM %s",TABLE_TODO);
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery(TODO_SELECT_QUERY,null);
+        return cursor;
+    }
 }

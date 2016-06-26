@@ -11,9 +11,12 @@ public class TodoItem implements Serializable {
     public int itemPosition;
     public long itemId;
 
-    public TodoItem(String content,int pos, long id){
+    public TodoItem(String content){
         this.itemContent = content;
-        this.itemPosition = pos;
+    }
+
+    public TodoItem(String content, long id){
+        this.itemContent = content;
         this.itemId = id;
     }
     public TodoItem(String content, int pos) {

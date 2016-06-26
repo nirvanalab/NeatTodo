@@ -1,6 +1,5 @@
 package com.task.vidhurvoora.neattodo;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -32,12 +31,11 @@ public class EditItemActivity extends AppCompatActivity {
             return;
         }
 
-        Intent editIntent = new Intent();
-        int todoPosition = editTodoItem.itemPosition;
-
-        TodoItem modifiedTodo = new TodoItem(todoContent,todoPosition);
-        editIntent.putExtra("TodoItem",modifiedTodo);
-        setResult(RESULT_OK,editIntent);
+//        Intent editIntent = new Intent();
+        this.editTodoItem.itemContent = todoContent;
+        TodoDatabaseHelper.getInstance(this).updateTodo(this.editTodoItem);
+//        editIntent.putExtra("TodoItem",this.editTodoItem);
+//        setResult(RESULT_OK,editIntent);
         this.finish();
     }
 }
