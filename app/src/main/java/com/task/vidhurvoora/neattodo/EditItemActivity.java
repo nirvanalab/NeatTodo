@@ -31,11 +31,8 @@ public class EditItemActivity extends AppCompatActivity {
             return;
         }
 
-//        Intent editIntent = new Intent();
         this.editTodoItem.itemContent = todoContent;
         TodoDatabaseHelper.getInstance(this).updateTodo(this.editTodoItem);
-//        editIntent.putExtra("TodoItem",this.editTodoItem);
-//        setResult(RESULT_OK,editIntent);
         this.finish();
     }
 }

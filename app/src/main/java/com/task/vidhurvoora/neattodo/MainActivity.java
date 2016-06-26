@@ -55,10 +55,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == TODO_EDIT_REQUEST_CODE ) {
-//            TodoItem item = (TodoItem)data.getSerializableExtra("TodoItem");
-//            items.set(item.itemPosition,item.itemContent);
-//            itemsAdapter.notifyDataSetChanged();
-//            writeItems();
             reload();
             Toast.makeText(this,"Succesfully saved the edit!",Toast.LENGTH_LONG).show();
         }
@@ -71,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 TodoItem item = todoDbHelper.getTodoItem(Long.toString(id));
                 launchEditIntent(item);
-                //String content = items.get(position);
             }
         });
     }
@@ -108,10 +103,6 @@ public class MainActivity extends AppCompatActivity {
         todoDbHelper.addTodo(item);
         reload();
         etNewItem.setText("");
-    }
-
-    public void fetchItemsFromDB() {
-        //items = todoDbHelper.getAllTodoItems();
     }
 
     //Utility method to read todoitems from a file
