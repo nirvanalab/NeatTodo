@@ -22,11 +22,6 @@ The following **optional** features are  **implemented**:
 * Add support for completion due dates for todo items (and display within listview item)
 * Use a [DialogFragment](http://guides.codepath.com/android/Using-DialogFragment) 
 
-The following **optional** features are **NOT** yet implemented:
-
-* [ ] Add support for selecting the priority of each todo item (and display in listview item)
-
-
 ## Video Walkthrough 
 
 Here's a walkthrough of implemented user stories:
