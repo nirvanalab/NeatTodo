@@ -24,7 +24,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Edit Item Below:"
+        android:text="Todo Item:"
         android:id="@+id/textView"
         android:textStyle="bold"
         android:textSize="20dp"
@@ -36,10 +36,11 @@
         android:layout_height="wrap_content"
         android:text="Save"
         android:id="@+id/btnSaveItem"
-        android:layout_marginTop="51dp"
         android:onClick="onSaveItem"
-        android:layout_below="@+id/etItem"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/btnCancel"
+        android:layout_marginLeft="50dp"
+         />
 
     <ImageView
         android:layout_width="50dp"
@@ -49,4 +50,49 @@
         android:layout_alignBottom="@+id/etItem"
         android:layout_toLeftOf="@+id/etItem"
         android:layout_toStartOf="@+id/etItem" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose Date Time"
+        android:id="@+id/chooseText"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:layout_marginTop="54dp"
+        android:layout_below="@+id/eivTodoIcon"
+        android:layout_alignLeft="@+id/textView"
+        android:layout_alignStart="@+id/textView" />
+
+    <DatePicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/chooseText"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentLeft="true"
+        android:id="@+id/dpTodo"
+        />
+
+    <TimePicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/chooseText"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@id/dpTodo"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:id="@+id/tpTodo"
+        android:layout_alignBaseline="@id/dpTodo"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:id="@+id/btnCancel"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/chooseText"
+        android:layout_toStartOf="@+id/chooseText"
+        android:onClick="onCancel"/>
+
+
 </RelativeLayout>

@@ -25,7 +25,10 @@ public class NeatTodoCursorAdapter extends CursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
         TextView tvContent = (TextView) view.findViewById(R.id.tvContent);
+        TextView tvDateTime = (TextView)view.findViewById(R.id.tvDateTime);
         String itemContent = cursor.getString(cursor.getColumnIndexOrThrow("content"));
+        String itemDate = cursor.getString(cursor.getColumnIndexOrThrow("date"));
         tvContent.setText(itemContent);
+        tvDateTime.setText(itemDate);
     }
 }

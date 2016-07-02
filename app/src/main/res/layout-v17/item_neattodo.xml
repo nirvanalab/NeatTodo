@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="70dp"
     android:weightSum="0.5">
 
     <ImageView
@@ -19,8 +19,8 @@
         android:id="@+id/tvContent"
         android:text="Todo Content"
         android:layout_toRightOf="@id/todoIcon"
-        android:layout_marginTop="10dp"
-        android:textSize="20dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="30dp"
         android:layout_alignTop="@id/todoIcon"
         android:textColor="@color/todoColor"
         />
@@ -30,10 +30,10 @@
         android:id="@+id/tvDateTime"
         android:text="Date Time"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="10dp"
-        android:layout_alignTop="@id/todoIcon"
-        android:textSize="15dp"
+        android:layout_alignBaseline="@id/tvContent"
+        android:textSize="20dp"
         android:textColor="@color/colorAccent"
         />
+
 
 </RelativeLayout>

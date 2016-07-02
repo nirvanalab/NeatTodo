@@ -1,5 +1,6 @@
 package com.task.vidhurvoora.neattodo;
 
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -16,6 +17,8 @@ import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private TodoDatabaseHelper todoDbHelper;
     private Cursor todoCursor;
     private final int TODO_EDIT_REQUEST_CODE = 301;
+    public Calendar currentCalendar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +50,20 @@ public class MainActivity extends AppCompatActivity {
         setupListViewLongClickListener();
         //setup the click listener to edit item
         setupListViewClickListener();
+        currentCalendar = Calendar.getInstance();
 
     }
 
+    public void onTimeSet()
+    {
+        String todoText = etNewItem.getText().toString();
+        Date date = currentCalendar.getTime();
+        int minute = currentCalendar.get(Calendar.MINUTE);
+        TodoItem item = new TodoItem(todoText,date);
+        todoDbHelper.addTodo(item);
+        reload();
+        etNewItem.setText("");
+    }
     //Handles the call back after the item has been edited.Fetches the changed item from the
     //extra.
 
@@ -99,10 +114,24 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this,"Please enter atleast one character to create a Todo item",Toast.LENGTH_LONG).show();
             return;
         }
-        TodoItem item = new TodoItem(todoText);
-        todoDbHelper.addTodo(item);
-        reload();
-        etNewItem.setText("");
+
+        DialogFragment newFragment = new TimePickerFragment();
+        newFragment.show(getFragmentManager(),"time picker");
+
+        DialogFragment dateFragment = new DatePickerFragment();
+        dateFragment.show(getFragmentManager(),"date picker");
+
+
+//        DateTime dt = DateTime.now();
+//        Date currentDate = dt.toLocalDate().toDate();
+//        Calendar cal = Calendar.getInstance();
+//
+//        //cal.add(Calendar.HOUR_OF_DAY,2);
+//        Date oneHourFromNow = cal.getTime();
+//        TodoItem item = new TodoItem(todoText,oneHourFromNow);
+//        todoDbHelper.addTodo(item);
+//        reload();
+//        etNewItem.setText("");
     }
 
     //Utility method to read todoitems from a file

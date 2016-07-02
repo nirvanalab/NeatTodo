@@ -1,0 +1,39 @@
+package com.task.vidhurvoora.neattodo;
+
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.app.TimePickerDialog;
+import android.os.Bundle;
+import android.text.format.DateFormat;
+import android.widget.TimePicker;
+
+import java.util.Calendar;
+
+/**
+ * Created by vidhurvoora on 7/1/16.
+ */
+public class TimePickerFragment extends DialogFragment
+        implements TimePickerDialog.OnTimeSetListener {
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        // Use the current time as the default values for the picker
+        final Calendar c = Calendar.getInstance();
+        int hour = c.get(Calendar.HOUR_OF_DAY);
+        int minute = c.get(Calendar.MINUTE);
+
+        // Create a new instance of TimePickerDialog and return it
+        return new TimePickerDialog(getActivity(), this, hour, minute,
+                DateFormat.is24HourFormat(getActivity()));
+    }
+
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        // Do something with the time chosen by the user
+        MainActivity activity = (MainActivity) this.getActivity();
+        Calendar cal = activity.currentCalendar;
+       cal.set(Calendar.HOUR,hourOfDay);
+        cal.set(Calendar.MINUTE,minute);
+        activity.currentCalendar = cal;
+        activity.onTimeSet();
+    }
+
+}
