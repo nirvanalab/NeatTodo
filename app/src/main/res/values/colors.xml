@@ -5,4 +5,8 @@
     <color name="colorAccent">#FF4081</color>
     <color name="todoColor">#FF6600</color>
     <color name="todoBackground">#FFF000</color>
+    <color name="lowPriority">#F5F5DC</color>
+    <color name="mediumPriority">#FFE4C4</color>
+    <color name="highPriority">#FFD700</color>
+
 </resources>

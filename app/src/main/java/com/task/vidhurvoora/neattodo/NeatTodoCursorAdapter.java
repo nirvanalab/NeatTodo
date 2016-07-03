@@ -28,6 +28,16 @@ public class NeatTodoCursorAdapter extends CursorAdapter {
         TextView tvDateTime = (TextView)view.findViewById(R.id.tvDateTime);
         String itemContent = cursor.getString(cursor.getColumnIndexOrThrow("content"));
         String itemDate = cursor.getString(cursor.getColumnIndexOrThrow("date"));
+        Long priority = cursor.getLong(cursor.getColumnIndexOrThrow("priority"));
+        if ( priority == 2 ) {
+            view.setBackgroundColor(context.getResources().getColor(R.color.lowPriority));
+        }
+        else  if ( priority == 1 ) {
+            view.setBackgroundColor(context.getResources().getColor(R.color.mediumPriority));
+        }
+        else if ( priority == 0) {
+            view.setBackgroundColor(context.getResources().getColor(R.color.highPriority));
+        }
         tvContent.setText(itemContent);
         tvDateTime.setText(itemDate);
     }

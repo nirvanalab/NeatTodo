@@ -10,6 +10,7 @@ import java.util.Date;
 public class TodoItem implements Serializable {
     public String itemContent;
     public int itemPosition;
+    public long priority;
     public long itemId;
     public Date itemDate;
 
@@ -17,15 +18,17 @@ public class TodoItem implements Serializable {
         this.itemContent = content;
     }
 
-    public TodoItem(String content,Date date){
+    public TodoItem(String content,Date date,long priority){
         this.itemContent = content;
         this.itemDate = date;
+        this.priority = priority;
     }
 
-    public TodoItem(String content, long id,Date date){
+    public TodoItem(String content, long id,Date date,long priority){
         this.itemContent = content;
         this.itemId = id;
         this.itemDate = date;
+        this.priority = priority;
     }
 
     public TodoItem(String content, int pos) {

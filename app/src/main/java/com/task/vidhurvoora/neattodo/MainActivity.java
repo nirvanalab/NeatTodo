@@ -59,7 +59,8 @@ public class MainActivity extends AppCompatActivity {
         String todoText = etNewItem.getText().toString();
         Date date = currentCalendar.getTime();
         int minute = currentCalendar.get(Calendar.MINUTE);
-        TodoItem item = new TodoItem(todoText,date);
+        //default to medium priority
+        TodoItem item = new TodoItem(todoText,date,2);
         todoDbHelper.addTodo(item);
         reload();
         etNewItem.setText("");

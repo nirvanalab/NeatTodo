@@ -10,7 +10,7 @@
     tools:context="com.task.vidhurvoora.neattodo.EditItemActivity">
 
     <EditText
-        android:layout_width="500dp"
+        android:layout_width="400dp"
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
         android:ems="10"
@@ -19,7 +19,15 @@
         android:textSize="30dp"
         android:textColor="@color/todoColor"
         android:layout_below="@+id/textView"
+        android:layout_toRightOf="@+id/eivTodoIcon"
         android:layout_centerHorizontal="true" />
+    <Spinner
+        android:id="@+id/priority_spinner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/etItem"
+        android:layout_alignTop="@id/etItem"
+        />
 
     <TextView
         android:layout_width="wrap_content"
@@ -48,8 +56,7 @@
         android:src="@drawable/todoicon"
         android:id="@+id/eivTodoIcon"
         android:layout_alignBottom="@+id/etItem"
-        android:layout_toLeftOf="@+id/etItem"
-        android:layout_toStartOf="@+id/etItem" />
+        android:layout_alignParentLeft="true"/>
 
     <TextView
         android:layout_width="wrap_content"

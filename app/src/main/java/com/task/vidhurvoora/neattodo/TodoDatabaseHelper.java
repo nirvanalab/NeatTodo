@@ -20,7 +20,7 @@ public class TodoDatabaseHelper extends SQLiteOpenHelper {
 
     // Database Info
     private static final String DATABASE_NAME = "todoDatabase";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
 
     // Table Name
     private static final String TABLE_TODO = "todoItem";
@@ -29,6 +29,7 @@ public class TodoDatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_TODO_ID = "id";
     private static final String KEY_TODO_CONTENT = "content";
     private static final String KEY_TODO_DATE = "date";
+    private static final String KEY_TODO_PRIORITY = "priority";
 
     //Singleton instance
     public static synchronized TodoDatabaseHelper getInstance(Context context) {
@@ -50,6 +51,7 @@ public class TodoDatabaseHelper extends SQLiteOpenHelper {
                 "(" +
                 KEY_TODO_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + // Define a primary key
                 KEY_TODO_DATE + " DATE, "+
+                KEY_TODO_PRIORITY + " INTEGER, "+
                 KEY_TODO_CONTENT + " TEXT "+ ")";
 
         db.execSQL(CREATE_TODO_TABLE);
@@ -73,7 +75,7 @@ public class TodoDatabaseHelper extends SQLiteOpenHelper {
     //CRUD operations
 
     private String getFormattedDate(Date date) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd,yyyy HH:mm");
         sdf.setTimeZone(TimeZone.getTimeZone("America/Los_Angeles"));
         String dateStr = sdf.format(date);
         return dateStr;
@@ -87,10 +89,11 @@ public class TodoDatabaseHelper extends SQLiteOpenHelper {
         try {
             ContentValues values = new ContentValues();
             values.put(KEY_TODO_CONTENT,todoItem.itemContent);
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            SimpleDateFormat sdf = new SimpleDateFormat("MMM dd,yyyy HH:mm");
             sdf.setTimeZone(TimeZone.getTimeZone("America/Los_Angeles"));
             String date = sdf.format(todoItem.itemDate);
             values.put(KEY_TODO_DATE,date);
+            values.put(KEY_TODO_PRIORITY,Long.toString(todoItem.priority));
             itemId = db.insertOrThrow(TABLE_TODO,null,values);
             db.setTransactionSuccessful();
         } catch (Exception e) {
@@ -112,6 +115,7 @@ public class TodoDatabaseHelper extends SQLiteOpenHelper {
             values.put(KEY_TODO_CONTENT,todoItem.itemContent);
             String dateStr = getFormattedDate(todoItem.itemDate);
             values.put(KEY_TODO_DATE,dateStr);
+            values.put(KEY_TODO_PRIORITY,Long.toString(todoItem.priority));
             int rows = db.update(TABLE_TODO,values,KEY_TODO_ID + " = ?",new String[]{Long.toString(todoItem.itemId)});
             if ( rows == 1) {
                 db.setTransactionSuccessful();
@@ -176,10 +180,11 @@ public class TodoDatabaseHelper extends SQLiteOpenHelper {
                     String itemContent = cursor.getString(cursor.getColumnIndex(KEY_TODO_CONTENT));
                     long itemId = cursor.getLong(cursor.getColumnIndex(KEY_TODO_ID));
                     String itemDateStr = cursor.getString(cursor.getColumnIndex(KEY_TODO_DATE));
-                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                SimpleDateFormat format = new SimpleDateFormat("MMM dd,yyyy HH:mm");
                 format.setTimeZone(TimeZone.getTimeZone("America/Los_Angeles"));
                 Date date = format.parse(itemDateStr);
-                item = new TodoItem(itemContent,itemId,date);
+                long priority = cursor.getLong(cursor.getColumnIndex(KEY_TODO_PRIORITY));
+                item = new TodoItem(itemContent,itemId,date,priority);
             }
         }catch (Exception e) {
 
@@ -192,7 +197,7 @@ public class TodoDatabaseHelper extends SQLiteOpenHelper {
     }
 
     public Cursor getTodoItemsCursor(){
-        String TODO_SELECT_QUERY = String.format("SELECT id _id,* FROM %s",TABLE_TODO);
+        String TODO_SELECT_QUERY = String.format("SELECT id _id,* FROM %s ORDER BY %s ASC",TABLE_TODO,KEY_TODO_PRIORITY);
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery(TODO_SELECT_QUERY,null);
         return cursor;

@@ -20,13 +20,15 @@ The following **optional** features are  **implemented**:
 * Improve style of the todo items in the list using a custom Cursory Adapter
 * Tweak the style improving the UI / UX, play with colors, images or backgrounds
 * Add support for completion due dates for todo items (and display within listview item)
-* Use a [DialogFragment](http://guides.codepath.com/android/Using-DialogFragment) 
+* Use a [DialogFragment] to prompt for the date and time (http://guides.codepath.com/android/Using-DialogFragment) 
+* Added Priority support for each item 
+* Sort items based on Priority and show corresponding color in background.
 
 ## Video Walkthrough 
 
 Here's a walkthrough of implemented user stories:
 
-<img src='https://raw.githubusercontent.com/nirvanalab/NeatTodo/master/NeatTodoVersion3.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://raw.githubusercontent.com/nirvanalab/NeatTodo/master/NeatTodoVersion4.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 

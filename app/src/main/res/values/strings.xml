@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">NeatTodo</string>
+    <string-array name="priority_array">
+        <item>High</item>
+        <item>Medium</item>
+        <item>Low</item>
+    </string-array>
 </resources>
