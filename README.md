@@ -4,7 +4,7 @@
 
 Submitted by: **Vidhur Voora**
 
-Time spent: **20** hours spent in total
+Time spent: **23** hours spent in total
 
 ## User Stories
 
@@ -20,7 +20,7 @@ The following **optional** features are  **implemented**:
 * Improve style of the todo items in the list using a custom Cursory Adapter
 * Tweak the style improving the UI / UX, play with colors, images or backgrounds
 * Add support for completion due dates for todo items (and display within listview item)
-* Use a [DialogFragment] to prompt for the date and time (http://guides.codepath.com/android/Using-DialogFragment) 
+* Use a DialogFragment to prompt for the date and time 
 * Added Priority support for each item 
 * Sort items based on Priority and show corresponding color in background.
 
